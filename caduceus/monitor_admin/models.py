@@ -60,7 +60,6 @@ class Request(BaseClass):
         '''
         try:
             parsed = json.loads(self.request_stats)
-            print("PARSED:", parsed)
             return parsed
         except ValueError:
             return False
