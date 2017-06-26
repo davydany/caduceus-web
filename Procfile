@@ -1,1 +1,1 @@
-web: cd citrus && gunicorn caduceus.wsgi:application --log-level debug --log-file -
+web: cd caduceus && gunicorn caduceus.wsgi:application --log-level debug --log-file -
