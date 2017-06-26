@@ -162,3 +162,5 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',
     ),
 }
+
+ALLOWED_HOSTS = 'caduceus.herokuapp.com'
