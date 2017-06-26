@@ -163,4 +163,4 @@ REST_FRAMEWORK = {
     ),
 }
 
-ALLOWED_HOSTS = 'caduceus.herokuapp.com'
+ALLOWED_HOSTS = ['caduceus.herokuapp.com']
