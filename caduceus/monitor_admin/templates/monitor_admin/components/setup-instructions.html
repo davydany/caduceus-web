@@ -1,0 +1,28 @@
+<h3>Setup Your Application</h3>
+<hr />
+<ol>
+    <li>
+        Copy the following code to <strong>{{object.django_project_name}}/{{object.django_project_name}}/wsgi.py</strong>
+        <pre>
+"""
+WSGI config for '{{object.django_project_name}}' project.
+
+It exposes the WSGI callable as a module-level variable named ``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
+"""
+
+import os
+
+from caduceus.wsgi import Caduceus
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ object.django_project_name }}.settings")
+
+caduceus_project_id = "{{object.project_id}}"
+application = Caduceus(get_wsgi_application(), caduceus_project_id)
+        </pre>
+    </li>
+    <li>Run: <pre>python manage.py runserver</pre></li>
+</ol>

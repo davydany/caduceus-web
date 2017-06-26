@@ -1,0 +1,134 @@
+{% extends "monitor_admin/base.html" %} 
+
+{% block "content" %}
+
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="pull-right">
+                    <strong>Project ID: </strong>
+                    <code>{{object.project_id}}</code>
+                </div>
+                <h3 class="panel-title">
+                    {{object.name|capfirst}} ({{object.django_project_name}})
+                </h3>
+            </div>
+            <div class="panel-body">
+            {% if not requests %}
+                {% include "monitor_admin/components/setup-instructions.html" %}
+            {% endif %}
+            </div>
+
+            {% if requests %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Request/Response ID</th>
+                        <th>Total<br /> Time</th>
+                        <th>Number of <br />String Objects</th>
+                        <th>Amount of <br />Memory Consumed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for request in requests %}
+                    {% with metrics=request.metrics %}
+                    {% if metrics %}
+                    <tr>
+                        <td><strong>{{request.uuid}}</strong></td>
+                        <td>{{metrics.timer.diff_ms}} ms</td>
+                        <td>{{metrics.tracer.string_count}} Objects</td>
+                        <td>{{metrics.tracer.size_in_bytes}} bytes</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4">
+                            <p>
+                                <strong>Unable to Parse JSON</strong>
+                            </p>
+                            <p>
+                                <strong>Request UUID: </strong>
+                                {{ request.uuid }}
+                            </p>
+                            <p>
+                                <code>{{request.request_stats}}</code>
+                            </p>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endwith %}
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Your Project</h3>
+            </div>
+            <div class="panel-body">
+                Your project is setup with the following details:
+            </div>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Project Name:</th>
+                        <td>{{object.name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Django Project Name:</th>
+                        <td>{{object.django_project_name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Project ID:</th>
+                        <td>{{object.project_id}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Options</h3>
+            </div>
+            <div class="panel-body text-center">
+                <div class="btn-group-vertical" role="group" aria-label="...">
+                    <a type="button" class="btn btn-success" href="#" data-toggle="modal" data-target="#myModal">
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                        Setup Your Application
+                    </a>
+                    <a type="button" class="btn btn-info" href="{% url 'project-update' object.id %}">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        Edit Project
+                    </a>
+                    <a type="button" class="btn btn-danger" href="{% url 'project-delete' object.id %}">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                        Delete Project
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Getting Started</h4>
+      </div>
+      <div class="modal-body">
+        {% include "monitor_admin/components/setup-instructions.html" %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

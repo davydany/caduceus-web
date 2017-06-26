@@ -1,0 +1,23 @@
+body {
+    background: #f3f3f3;
+}
+
+.container {
+    
+}
+
+.navbar {
+    background: #333333;
+    color: #cccccc;
+    font-weight: bold;
+}
+    
+.navbar-default .navbar-nav>li>a {
+    color: #cccccc;
+    border-bottom:5px solid #333333;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: #999999;
+    border-bottom:5px solid #999999;
+}
