@@ -11,10 +11,18 @@ class ProjectListView(LoginRequiredMixin, ListView):
 
     model = Project
 
+    def get_queryset(self):
+
+        return Project.objects.filter(owner=self.request.user).all()
+
 class ProjectCreateView(LoginRequiredMixin, CreateView):
 
     model = Project
     fields = ['name', 'owner', 'django_project_name']
+
+    def get_queryset(self):
+
+        return Project.objects.filter(owner=self.request.user).all()
 
     def get_context_data(self, **kwargs):
         '''
@@ -41,6 +49,10 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     model = Project
     fields = ['name', 'django_project_name']
 
+    def get_queryset(self):
+
+        return Project.objects.filter(owner=self.request.user).all()
+
     def get_context_data(self, **kwargs):
         '''
         Adds the current user's ID to the form data.
@@ -53,6 +65,10 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
 
     model = Project
 
+    def get_queryset(self):
+
+        return Project.objects.filter(owner=self.request.user).all()
+
     def get_success_url(self):
 
         return reverse('project-list')
@@ -61,6 +77,10 @@ class ProjectDetailView(LoginRequiredMixin, DetailView):
 
     model = Project
     fields = ['name', 'project_id', 'owner']
+    
+    def get_queryset(self):
+
+        return Project.objects.filter(owner=self.request.user).all()
 
     def get_context_data(self, **kwargs):
 
