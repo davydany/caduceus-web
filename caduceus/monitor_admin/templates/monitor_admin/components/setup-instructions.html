@@ -3,9 +3,9 @@
 <ol>
     <li>
         Install <strong>Caduceus</strong>
-        <pre>
-            pip install --upgrade caduceus
-        </pre>
+<pre>
+pip install --upgrade caduceus
+</pre>
     </li>
     <li>
         Copy the following code to <strong>{{object.django_project_name}}/{{object.django_project_name}}/wsgi.py</strong>
@@ -37,5 +37,8 @@ application = Caduceus(get_wsgi_application(), caduceus_project_id)
 If you don't want to run Caduceus, run the following:
 
 <pre>
-application = Caduceus(get_wsgi_application(), caduceus_project_id, activate=False)
+application = Caduceus(
+    get_wsgi_application(), 
+    caduceus_project_id, 
+    activate=False)
 </pre>
