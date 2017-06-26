@@ -1,5 +1,5 @@
 {% extends "monitor_admin/base.html" %} 
-
+{% load from_iso_filter %}
 {% block "content" %}
 
 
@@ -26,7 +26,8 @@
                 <thead>
                     <tr>
                         <th>Request/Response ID</th>
-                        <th>Total<br /> Time</th>
+                        <th>Time of Event</th>
+                        <th>Total Time</th>
                         <th>Number of <br />String Objects</th>
                         <th>Amount of <br />Memory Consumed</th>
                     </tr>
@@ -37,9 +38,10 @@
                     {% if metrics %}
                     <tr>
                         <td><strong>{{request.uuid}}</strong></td>
-                        <td>{{metrics.timer.diff_ms}} ms</td>
-                        <td>{{metrics.tracer.string_count}} Objects</td>
-                        <td>{{metrics.tracer.size_in_bytes}} bytes</td>
+                        <td>{{ metrics.timer.start_time|from_iso }}</td>
+                        <td>{{ metrics.timer.diff_ms|floatformat:3 }} ms</td>
+                        <td>{{ metrics.tracer.string_count }} Strings</td>
+                        <td>{{ metrics.tracer.size_in_bytes }} bytes</td>
                     </tr>
                     {% else %}
                     <tr>
