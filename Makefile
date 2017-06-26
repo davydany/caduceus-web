@@ -7,4 +7,4 @@ setup:
 
 serve:
 	./env/bin/python caduceus/manage.py migrate
-	./env/bin/python caduceus/manage.py runserver
+	./env/bin/python caduceus/manage.py runserver 9000

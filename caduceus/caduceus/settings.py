@@ -14,6 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+print("BASE_DIR: ", BASE_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,9 +41,11 @@ INSTALLED_APPS = [
 
     # 3rd party plugins
     'djangobower',
+    'rest_framework',
 
     # local apps
     'accounts',
+    'core',
     'caduceus',
     'monitor_admin'
 ]
@@ -62,7 +65,7 @@ ROOT_URLCONF = 'caduceus.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,12 +130,35 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'djangobower.finders.BowerFinder',
 )
 
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
+# Bower Setup
+# https://django-bower.readthedocs.io/en/latest/usage.html
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, '')
 
 BOWER_INSTALLED_APPS = ('bootstrap', 'jquery')
+
+# Django Rest Framework
+# http://www.django-rest-framework.org/api-guide/settings/
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+    ),
+}
