@@ -19,6 +19,7 @@ from django.contrib import admin
 from monitor_admin import urls as monitor_admin_urls
 
 urlpatterns = [
+    url(r'^', include('accounts.urls')),
     url(r'^', include('monitor_admin.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))

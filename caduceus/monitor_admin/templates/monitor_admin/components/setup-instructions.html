@@ -7,7 +7,7 @@
 """
 WSGI config for '{{object.django_project_name}}' project.
 
-It exposes the WSGI callable as a module-level variable named ``application``.
+It exposes the WSGI callable as a module-level variable named `application`.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
@@ -26,3 +26,10 @@ application = Caduceus(get_wsgi_application(), caduceus_project_id)
     </li>
     <li>Run: <pre>python manage.py runserver</pre></li>
 </ol>
+
+<hr />
+If you don't want to run Caduceus, run the following:
+
+<pre>
+application = Caduceus(get_wsgi_application(), caduceus_project_id, activate=False)
+</pre>

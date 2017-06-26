@@ -30,7 +30,7 @@
                     {% for project in object_list %}
                     <tr>
                         <td><strong>{{project.name}}</strong></td>
-                        <td>{{project.requests|length}}</td>
+                        <td>{{project.requests.all|length}}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                                 <a href="{% url 'project-detail' project.id %}" type="button" class="btn btn-success">View</a>
@@ -56,6 +56,25 @@
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     Create Project
                 </a>
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">How Does it Work?</h3>
+            </div>
+            <div class="panel-body text-justify">
+                <p>
+                Each of your requests get a tracer function which 
+                monitors each request. Caduceus determines if the code
+                that it encounters belongs to your dependencies or if 
+                it belongs to your application code. If it belongs to 
+                your application code, Caduceus collects information it
+                needs.
+                </p>
+                <p>
+                The information that Caduceus collects is then sent to 
+                this site, and it is presented to you in all it's glory!
+                </p>
             </div>
         </div>
     </div>
