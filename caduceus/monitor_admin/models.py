@@ -46,6 +46,10 @@ class Request(BaseClass):
     uuid = models.CharField(max_length=36, unique=True)
     request_stats = models.TextField()
 
+    class Meta:
+
+        ordering = ['-created_at']
+
     def __str__(self):
 
         return '%s - Request: %s' % (self.project.name, self.uuid)
